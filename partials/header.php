@@ -2,11 +2,12 @@
 $totalPrice = 0;
 $totalQuantity = 0;
 
-foreach ($_SESSION["cart"] as $id => $item) {
-    $totalQuantity += $item["quantity"];
-    $totalPrice += $item["price"] * $item["quantity"];
+if (isset($_SESSION["cart"])) {
+    foreach ($_SESSION["cart"] as $id => $item) {
+        $totalQuantity += $item["quantity"];
+        $totalPrice += $item["price"] * $item["quantity"];
+    }
 }
-
 ?>
 <!-- Header -->
 <header>
