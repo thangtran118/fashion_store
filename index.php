@@ -630,6 +630,7 @@ require './partials/connect.php';
   <!-- Footer  -->
   <?php
   include './partials/footer.php';
+  $connect->close();
   ?>
 </body>
 

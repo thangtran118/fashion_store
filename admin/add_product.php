@@ -82,6 +82,7 @@ include './admin_partials/head.php';
         <!-- /.content-wrapper -->
         <?php
         include './admin_partials/footer.php';
+        $connect->close();
         ?>
     </div>
 </body>

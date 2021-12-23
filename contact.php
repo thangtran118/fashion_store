@@ -108,6 +108,7 @@ include './partials/head.php';
 	<!-- Footer  -->
 	<?php
 	include './partials/footer.php';
+	$connect->close();
 	?>
 	<script>
 		document.querySelector('header').classList.add('header-v4');

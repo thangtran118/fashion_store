@@ -159,6 +159,7 @@ include './partials/head.php';
 	<!-- Footer  -->
 	<?php
 	include './partials/footer.php';
+	$connect->close();
 	?>
 
 	<script>

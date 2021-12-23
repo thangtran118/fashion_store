@@ -17,6 +17,7 @@ if (isset($_POST["login"])) {
 
     if ($username == $db_username && password_verify($password, $db_password)) {
         $_SESSION["logged"] = true;
+        $connect->close();
         header('location: index.php');
     } else {
         header('location: login.php');
