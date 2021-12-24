@@ -5,7 +5,7 @@
 include './partials/head.php';
 require './partials/connect.php';
 
-$id = $_GET["id"];
+$pro_id = $_GET["id"];
 $sql = "
 	SELECT
 		products.name,
@@ -20,7 +20,7 @@ $sql = "
 		products.id = ?
 ";
 $stmt = $connect->prepare($sql);
-$stmt->bind_param('i', $id);
+$stmt->bind_param('i', $pro_id);
 $stmt->execute();
 $stmt->bind_result($name, $price, $desc, $photo_path, $category);
 $stmt->fetch();
@@ -98,7 +98,7 @@ $stmt->fetch();
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-							<?php $name ?>
+							<?php echo $name ?>
 						</h4>
 
 						<span class="mtext-106 cl2">
@@ -113,7 +113,7 @@ $stmt->fetch();
 								<div class="size-204 flex-w flex-m respon6-next">
 									<form action="./handler/handle_cart.php" method="post">
 										<input type="hidden" name="photo" value="<?php echo $photo_path ?>">
-										<input type="hidden" name="id" value="<?php echo $id ?>">
+										<input type="hidden" name="id" value="<?php echo $pro_id ?>">
 										<input type="hidden" name="price" value="<?php echo $price ?>">
 										<input type="hidden" name="name" value="<?php echo $name ?>">
 										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">

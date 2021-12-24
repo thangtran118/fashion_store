@@ -3,6 +3,7 @@
 <html lang="en">
 <?php
 include './partials/head.php';
+require './partials/connect.php';
 ?>
 
 <body class="animsition">
@@ -29,7 +30,7 @@ include './partials/head.php';
 
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85">
+	<form class="bg0 p-t-75 p-b-85" action="./handler/handle_checkout.php" method="post">
 		<?php
 		$total = 0;
 		?>
@@ -88,6 +89,7 @@ include './partials/head.php';
 						<h4 class="mtext-109 cl2 p-b-30">
 							Cart Totals
 						</h4>
+
 						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
 							<div class="size-208 w-full-ssm">
 								<span class="stext-110 cl2">
@@ -97,41 +99,40 @@ include './partials/head.php';
 
 							<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
 								<p class="stext-111 cl6 p-t-2">
-									There are no shipping methods available. Please double check your address, or contact us if you need any help.
+									Please enter infomation for receiver
 								</p>
-
 								<div class="p-t-15">
-									<span class="stext-112 cl8">
-										Calculate Shipping
-									</span>
-
-									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-										<select class="js-select2" name="time">
-											<option>Select a country...</option>
-											<option>HN</option>
-											<option>HCM</option>
-										</select>
-										<div class="dropDownSelect2"></div>
-									</div>
-
-									<div class="bor8 bg0 m-b-12">
-										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country">
-									</div>
-
-									<div class="bor8 bg0 m-b-22">
-										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Postcode / Zip">
-									</div>
-
-									<div class="flex-w">
-										<div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
-											Update Totals
+									<?php
+									if (isset($_SESSION["user_id"])) {
+										$sql = "SELECT address, phone, name FROM customers";
+										$stmt = $connect->prepare($sql);
+										$stmt->execute();
+										$stmt->bind_result($receiver_address, $receiver_phone, $receiver_name);
+										$stmt->fetch();
+									?>
+										<div class="bor8 bg0 m-b-12">
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="name" value="<?php echo $receiver_name ?>">
 										</div>
-									</div>
-
+										<div class="bor8 bg0 m-b-12">
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" value="<?php echo $receiver_address ?>">
+										</div>
+										<div class="bor8 bg0 m-b-12">
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phone" value="<?php echo $receiver_phone ?>">
+										</div>
+									<?php } else { ?>
+										<div class="bor8 bg0 m-b-12">
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" placeholder="Receiver's name">
+										</div>
+										<div class="bor8 bg0 m-b-12">
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" placeholder="Receiver's address">
+										</div>
+										<div class="bor8 bg0 m-b-12">
+											<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" placeholder="Receiver's phone number">
+										</div>
+									<?php } ?>
 								</div>
 							</div>
 						</div>
-
 						<div class="flex-w flex-t p-t-27 p-b-33">
 							<div class="size-208">
 								<span class="mtext-101 cl2">
@@ -145,10 +146,17 @@ include './partials/head.php';
 								</span>
 							</div>
 						</div>
-
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-							Proceed to Checkout
-						</button>
+						<?php
+						if (isset($_SESSION["user_id"])) {
+						?>
+							<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+								Proceed to Checkout
+							</button>
+						<?php } else { ?>
+							<a class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" href="login.php">
+								Login to Checkout
+							</a>
+						<?php } ?>
 					</div>
 				</div>
 			</div>

@@ -7,7 +7,7 @@ include './partials/head.php';
 require './partials/connect.php';
 ?>
 
-<body class="animsition">
+<body class="animsition" style="height: 100vh;">
   <!-- Header -->
 
   <?php
@@ -25,7 +25,6 @@ require './partials/connect.php';
           $sql = "SELECT name FROM categories";
           $stmt = $connect->prepare($sql);
           $stmt->execute();
-          $stmt->store_result();
           $stmt->bind_result($name);
           while ($stmt->fetch()) { ?>
             <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".<?php echo $name ?>">
@@ -379,7 +378,7 @@ require './partials/connect.php';
               <div class="block2-txt flex-w flex-t p-t-14">
                 <div class="block2-txt-child1 flex-col-l">
                   <a href="details.php" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                    $name
+                    <?php echo $name ?>
                   </a>
 
                   <span class="stext-105 cl3"> $<?php echo $price ?> </span>
