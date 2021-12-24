@@ -41,6 +41,14 @@
             </li>
         </ul>
         <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">Orders</li>
+            <li>
+                <a href="show_orders.php">
+                    <i class="fa fa-dashboard"></i> <span>Show Orders</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Account</li>
             <li>
                 <a href="logout.php">

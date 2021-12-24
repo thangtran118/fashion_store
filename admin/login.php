@@ -8,16 +8,13 @@ if (isset($_POST["login"])) {
     $password = $_POST["password"];
 
     $sql = "SELECT username, password FROM admins WHERE username=?";
-
     $stmt = $connect->prepare($sql);
     $stmt->bind_param('s', $username);
     $stmt->execute();
     $stmt->bind_result($db_username, $db_password);
     $stmt->fetch();
-
-    if ($username == $db_username && password_verify($password, $db_password)) {
+    if ($username == $db_username and password_verify($password, $db_password)) {
         $_SESSION["logged"] = true;
-        $connect->close();
         header('location: index.php');
     } else {
         header('location: login.php');
