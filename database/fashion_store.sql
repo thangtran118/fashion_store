@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database:3306
--- Generation Time: Dec 22, 2021 at 11:30 PM
+-- Generation Time: Dec 24, 2021 at 09:26 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.20
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `fashion_store`
 --
-CREATE DATABASE IF NOT EXISTS `fashion_store` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `fashion_store`;
 
 -- --------------------------------------------------------
 
@@ -88,11 +86,21 @@ CREATE TABLE `contact` (
 
 CREATE TABLE `customers` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(200) NOT NULL,
   `password` char(60) NOT NULL,
+  `phone` char(20) NOT NULL,
+  `address` varchar(200) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `email`, `password`, `phone`, `address`, `created_at`, `updated_at`) VALUES
+(4, 'thang', 'demo1@gmail.com', '$2y$10$RThJGJlp2IjX.BJ/tCeVKu/GLXqhA4ypQPtRUA1D.x1vz/yMQ43Ay', '0123123123', 'Ha Noi', '2021-12-23 23:52:49', '2021-12-23 23:52:49');
 
 -- --------------------------------------------------------
 
@@ -103,11 +111,20 @@ CREATE TABLE `customers` (
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `address` varchar(200) NOT NULL,
+  `phone` char(20) NOT NULL,
   `total` int(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `customer_id`, `name`, `address`, `phone`, `total`, `created_at`, `updated_at`) VALUES
+(5, 4, 'thang', 'Ha Noi', '0123123123', 94, '2021-12-24 08:57:55', '2021-12-24 08:57:55');
 
 -- --------------------------------------------------------
 
@@ -123,6 +140,17 @@ CREATE TABLE `order_details` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(10, 4, 6, 2, '2021-12-24 08:38:17', '2021-12-24 08:38:17'),
+(11, 4, 16, 1, '2021-12-24 08:38:17', '2021-12-24 08:38:17'),
+(12, 4, 10, 1, '2021-12-24 08:38:17', '2021-12-24 08:38:17'),
+(13, 5, 11, 1, '2021-12-24 08:57:55', '2021-12-24 08:57:55'),
+(14, 5, 20, 2, '2021-12-24 08:57:55', '2021-12-24 08:57:55');
 
 -- --------------------------------------------------------
 
@@ -189,7 +217,8 @@ ALTER TABLE `contact`
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `orders`
@@ -235,19 +264,19 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `products`
